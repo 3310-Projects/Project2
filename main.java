@@ -1,5 +1,5 @@
     import java.lang.*;
-    import java.utiil.*;
+    import java.util.*;
     import java.io.*;
 public class ShortestPath {
         public static int inf=99999;
