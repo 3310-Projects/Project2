@@ -1,19 +1,20 @@
 public class FloydWarshall 
 {
     public static int inf=99999;
+   
     public static void main(String[] args)
     {
-        // int matrixGraph[][] = {   {0,10,inf,inf,5},
-        //                           {inf,0,1,inf,2},
-        //                           {inf,inf,0,4,inf},
-        //                           {7,inf,6,0,inf},
-        //                           {inf,3,9,2,0},
-        //                         };
-        int matrixGraph[][] = {   {0,3,inf,7},
-                                  {8,0,2,inf},
-                                  {5,inf,0,1},
-                                  {2,inf,inf,0}
+        int matrixGraph[][] = {   {0,3,8,inf,-4},
+                                  {inf,0,inf,1,7},
+                                  {inf,4,0,inf,inf},
+                                  {2,inf,-5,0,inf},
+                                  {inf,inf,inf,6,0},
                                 };
+        // int matrixGraph[][] = {   {0,3,inf,7},
+        //                           {8,0,2,inf},
+        //                           {5,inf,0,1},
+        //                           {2,inf,inf,0}
+        //                         };
     
         
         allPairsShortestPath(matrixGraph);
@@ -38,7 +39,8 @@ public class FloydWarshall
     public static void allPairsShortestPath(int graph[][])
     {
         int n = graph.length;
-        int[][] prev = new int[n][n];
+        int[][] distance = new int[n][n];
+        int[][] pred = new int[n][n];
         /*        for  𝑢 ← 1 to 𝑛 do
                     for  𝑣 ← 1 to 𝑛 do
                         𝐷0[u,v] ← 𝑤(𝑢,𝑣) 
@@ -47,7 +49,10 @@ public class FloydWarshall
         {
             for (int v=0; v<n; v++)
             {
-                prev[u][v]= graph[u][v];
+                distance[u][v]= graph[u][v];
+                pred[u][v]= u+1;
+                
+               
             }
         }
 
@@ -64,19 +69,25 @@ public class FloydWarshall
                 for (int v=0; v<n; v++)
                 {
                     
-                    if (prev[u][k]+prev[k][v]< prev[u][v])
+                    if (distance[u][k]+distance[k][v]< distance[u][v])
                     {
-                        prev[u][v]= prev[u][k]+prev[k][v];
+                        distance[u][v]= distance[u][k]+distance[k][v];
+                        pred[u][v]= pred[k][v];
                     }
                 }
 
             }
         }
         //return 𝐷k
-       printGraph(prev);
+        System.out.println("Distance Matrix");
+       printGraph(distance);
+        System.out.println("Predecessor Matrix");
+       printGraph(pred);
+       
 
 
     }
+
 
     
 }
